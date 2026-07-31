@@ -65,4 +65,7 @@ export declare function findJobByName(name: string, options?: {
     scopesRoot?: string;
 }): Job | null;
 export declare const SchedulerPlugin: Plugin;
-export default SchedulerPlugin;
+declare const _default: {
+    server: Plugin;
+};
+export default _default;

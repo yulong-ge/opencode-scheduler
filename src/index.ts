@@ -3351,5 +3351,8 @@ Commands:
   }
 }
 
-// Default export for OpenCode plugin system
-export default SchedulerPlugin
+// V1 module shape makes OpenCode load only the server entrypoint and ignore
+// named helper exports that exist for tests and library consumers.
+export default {
+  server: SchedulerPlugin,
+}
