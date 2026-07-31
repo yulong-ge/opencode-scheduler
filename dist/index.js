@@ -15003,7 +15003,9 @@ ${logs}`, { job, logPath, logs });
     }
   };
 };
-var src_default = SchedulerPlugin;
+var src_default = {
+  server: SchedulerPlugin
+};
 export {
   mergeRunOverride,
   listScopeIds,
