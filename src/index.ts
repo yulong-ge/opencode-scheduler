@@ -3353,6 +3353,26 @@ Commands:
 
 // V1 module shape makes OpenCode load only the server entrypoint and ignore
 // named helper exports that exist for tests and library consumers.
+// V2 (opencode 2.x) calls setup(): it registers the same tool map through
+// ctx.tool.transform. V1 (>=1.18.29) keeps calling server().
 export default {
+  id: "opencode-scheduler",
   server: SchedulerPlugin,
+  async setup(ctx: any) {
+    const hooks = (await SchedulerPlugin({} as any)) as any
+    const tools = hooks?.tool ?? {}
+    await ctx.tool.transform((editor: any) => {
+      for (const [name, def] of Object.entries(tools) as Array<[string, any]>) {
+        editor.add({
+          name,
+          description: def.description,
+          input: tool.schema.object(def.args ?? {}),
+          async execute(input: any) {
+            const result = await def.execute(input, {} as any)
+            return { content: typeof result === "string" ? result : JSON.stringify(result) }
+          },
+        })
+      }
+    })
+  },
 }
