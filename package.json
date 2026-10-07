@@ -50,5 +50,8 @@
     "@opencode-ai/plugin": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "@opencode-ai/plugin": ">=1.0.0"
   }
 }
